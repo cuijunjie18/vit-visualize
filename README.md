@@ -2,7 +2,9 @@
 
 ## 参考源码
 
-vit-pytorch： https://github.com/lucidrains/vit-pytorch.git
+- vit-pytorch： https://github.com/lucidrains/vit-pytorch.git  
+
+- visualize： https://ai.plainenglish.io/visualizing-attention-in-vision-transformer-c871908d86de
 
 ## 结构说明
 
@@ -10,6 +12,8 @@ vit-pytorch： https://github.com/lucidrains/vit-pytorch.git
 - demo.ipynb： 对人工实现的vit的可视化demo.
 - demo_clip-vit.py： 对开源openai/clip-vit-large-patch14的模型进行注意力提取.
 - clip-vit-visualize.ipynb： 实现对clip模型的注意力可视化.
+- visualize.py： 参考可视化.
+- reference.ipynb： 对比结果.
 
 ## 日志
 

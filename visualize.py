@@ -382,33 +382,6 @@ def plot_attention(img, attention):
     plt.tight_layout()
     plt.show()
 
-
-
-class Loader(object):
-    def __init__(self):
-        self.uploader = widgets.FileUpload(accept='image/*', multiple=False)
-        self._start()
-
-    def _start(self):
-        display(self.uploader)
-
-    def getLastImage(self):
-        try:
-            for uploaded_filename in self.uploader.value:
-                uploaded_filename = uploaded_filename
-            img = Image.open(io.BytesIO(
-                bytes(self.uploader.value[uploaded_filename]['content'])))
-
-            return img
-        except:
-            return None
-
-    def saveImage(self, path):
-        with open(path, 'wb') as output_file:
-            for uploaded_filename in self.uploader.value:
-                content = self.uploader.value[uploaded_filename]['content']
-                output_file.write(content)
-
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 if device.type == "cuda":
     torch.cuda.set_device(1)
@@ -418,6 +391,8 @@ patch_size = 8
 
 model = VitGenerator(name_model, patch_size, 
                      device, evaluate=True, random=False, verbose=True)
+
+
 
 # Visualizing Dog Image
 path = './demo_images/corgi_image.jpg'
