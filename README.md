@@ -14,7 +14,13 @@ vit-pytorch： https://github.com/lucidrains/vit-pytorch.git
 ## 日志
 
 - 2025-7.19, 实现openai/clip-vit-large-patch14的vision部分注意力可视化.
+  ![mean](demo_images/output.png)
+  
+  ![each_head](demo_images/output2.png)
 
+## 问题
+
+- [ ] 目前的注意力可视化代码过于粗糙，效果不好看.
 
 ## 收获
 
