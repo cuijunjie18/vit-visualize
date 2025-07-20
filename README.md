@@ -22,9 +22,12 @@
   
   ![each_head](demo_images/output2.png)
 
+- 2025-7.20，兼容实现qwen2.5vl的language-model部分的注意力可视化，效果不好，可能是因为最后的meger layer不是类似卷积那样的2x2合并，而是顺序4个合并image token.
+
 ## 问题
 
 - [ ] 目前的注意力可视化代码过于粗糙，效果不好看.
+- [ ] qwen2.5vl的language-model的注意力看不出效果.
 
 ## 收获
 
