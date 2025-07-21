@@ -1,5 +1,5 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = "6"
+os.environ['CUDA_VISIBLE_DEVICES'] = "7"
 import json
 from transformers import Qwen2_5_VLForConditionalGeneration, AutoProcessor
 from qwen_vl_utils import process_vision_info
@@ -57,14 +57,24 @@ def model_inference():
     )
     inputs = inputs.to(model.device)
 
-    # Inference: Generation of the output
-    generated_ids = model.generate(**inputs, max_new_tokens=128)
+    outputs,vit_attns = model(**inputs)
+
+    logits = outputs.logits
+
+    my_ids = logits.argmax(dim = 2)
+
+    breakpoint()
+
+    # generated_ids,vit_attns = model.generate(**inputs, max_new_tokens=128)
     generated_ids_trimmed = [
-        out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
+        out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, my_ids)
     ]
     output_text = processor.batch_decode(
         generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
     )
+
+    print(output_text)
+
     end = time.perf_counter()
     print(f"执行时间: {end - start:.8f} 秒")  # 小数点后8位精度
     return output_text
