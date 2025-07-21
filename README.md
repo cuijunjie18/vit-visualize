@@ -15,17 +15,20 @@
 - visualize.py： 参考可视化.
 - reference.ipynb： 对比结果.
 - qwen2.5vl.ipynb、qwen2.5vlpy： Qwen2.5vl的visual、language部分的注意力可视化
+- qwen2.5vl_follow.ipynb： qwen2.5vl的visual-attentions矩阵生成.
 
 ## 日志
 
 - 2025-7.19, 实现openai/clip-vit-large-patch14的vision部分注意力可视化.
-  ![mean](demo_images/output.png)
+  ![mean](demo_images/output_mean.png)
   
-  ![each_head](demo_images/output2.png)
+  ![each_head](demo_images/output_clip.png)
 
 - 2025-7.20，兼容实现qwen2.5vl的language-model部分的注意力可视化，效果不好，可能是因为最后的meger layer不是类似卷积那样的2x2合并，而是顺序4个合并image token.
 
-- 2025-7.21，对注意力的插值方法改进，美化可视化的效果.
+- 2025-7.21，对注意力的插值方法改进，美化可视化的效果，实现qwen2.5vl的visual-model部分的注意力矩阵生成.
+  ![qwen-visual-attn-matrix](demo_images/output.png)
+
 
 ## 问题
 

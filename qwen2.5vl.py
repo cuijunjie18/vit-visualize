@@ -57,17 +57,16 @@ def model_inference():
     )
     inputs = inputs.to(model.device)
 
-    outputs,vit_attns = model(**inputs)
+    # outputs,vit_attns = model(**inputs)
 
-    logits = outputs.logits
+    # logits = outputs.logits
 
-    my_ids = logits.argmax(dim = 2)
+    # my_ids = logits.argmax(dim = 2)
 
-    breakpoint()
-
-    # generated_ids,vit_attns = model.generate(**inputs, max_new_tokens=128)
+    # Inference: Generation of the output
+    generated_ids = model.generate(**inputs, max_new_tokens=128)
     generated_ids_trimmed = [
-        out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, my_ids)
+        out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
     ]
     output_text = processor.batch_decode(
         generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
