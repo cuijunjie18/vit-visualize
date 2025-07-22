@@ -57,3 +57,19 @@ def forward(
     ) -> CLIPOutput:
 ```
 
+### 三、对于pytorch中的图像处理
+
+如果遇到一些问题如下面的报错
+```py
+RuntimeError: "LayerNormKernelImpl" not implemented for 'Byte'
+```
+
+```py
+RuntimeError: mixed dtype (CPU): all inputs must share same datatype.
+```
+
+可以推测出是img的dtype不是float,需要归一化
+
+```py
+img = img / 255
+```

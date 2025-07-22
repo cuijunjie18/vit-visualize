@@ -122,6 +122,7 @@ class ViT(nn.Module):
         self.mlp_head = nn.Linear(dim, num_classes)
 
     def forward(self, img):
+        # breakpoint()
         x = self.to_patch_embedding(img)
         b, n, _ = x.shape
 
@@ -130,7 +131,11 @@ class ViT(nn.Module):
         x += self.pos_embedding[:, :(n + 1)]
         x = self.dropout(x)
 
+        # breakpoint()
+
         x = self.transformer(x)
+
+        # breakpoint()
 
         x = x.mean(dim = 1) if self.pool == 'mean' else x[:, 0]
 
@@ -151,7 +156,7 @@ class ViT(nn.Module):
         return attn
 
 
-def visualize_attention(model, img, patch_size, device):
+def visualize_attention(model, img, patch_size, device = torch.device("cpu")):
     """img不带batch维度"""
 
     # make the image divisible by the patch size
@@ -194,3 +199,25 @@ def plot_attention(img, attention):
         plt.title(f"Head n: {i+1}")
     plt.tight_layout()
     plt.show()
+
+if __name__ == '__main__':
+    from torchinfo import summary
+    import torchvision 
+    device = torch.device("cpu")
+    net = ViT(
+        image_size = 224,
+        patch_size = 16,
+        num_classes = 10,
+        dim = 1024,
+        depth = 6,
+        heads = 16,
+        mlp_dim = 2048,
+        dropout = 0.1,
+        emb_dropout = 0.1
+    ).to(device)
+    net.eval()
+    img = torchvision.io.read_image("demo_images/cat.jpg")
+    transform = torchvision.transforms.Resize((224,224))
+    img = transform(img).to(device)
+    img = img / 255 # 一定要加
+    print(summary(net,input_data = img.unsqueeze(0)))
